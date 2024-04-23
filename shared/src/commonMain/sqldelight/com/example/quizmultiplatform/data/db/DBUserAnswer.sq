@@ -1,0 +1,18 @@
+CREATE TABLE user_answer (
+    ua_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    ua_game_id INTEGER NOT NULL,
+    ua_question_id INTEGER NOT NULL,
+    ua_answer_id INTEGER NOT NULL,
+    ua_answered_at INTEGER NOT NULL,
+    ua_is_correct INTEGER NOT NULL
+);
+
+
+insertUserAnswer:
+INSERT INTO user_answer(
+    ua_game_id,
+    ua_question_id,
+    ua_answer_id,
+    ua_answered_at,
+    ua_is_correct
+) VALUES (?, ?, ?, ?, ?);

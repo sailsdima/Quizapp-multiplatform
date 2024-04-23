@@ -1,0 +1,16 @@
+CREATE TABLE category (
+    c_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    c_name TEXT NOT NULL UNIQUE
+);
+
+insertCategory:
+INSERT OR IGNORE INTO category(c_name) VALUES (?);
+
+lastInsertRowId:
+SELECT last_insert_rowid();
+
+findCategoryIdByName:
+SELECT c_id FROM category WHERE c_name == :name;
+
+deleteCategoryById:
+DELETE FROM category WHERE c_id == :id;

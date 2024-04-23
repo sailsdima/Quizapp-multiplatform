@@ -1,0 +1,52 @@
+CREATE TABLE IF NOT EXISTS question (
+  q_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+  q_type TEXT NOT NULL,
+  q_category_id INTEGER NOT NULL,
+  q_question TEXT NOT NULL,
+  q_difficulty INTEGER NOT NULL,
+  q_createdAt INTEGER NOT NULL,
+  q_updatedAt INTEGER NOT NULL,
+  q_timesShown INTEGER DEFAULT 0,
+  FOREIGN KEY (q_category_id) REFERENCES category(c_id) ON DELETE CASCADE
+);
+
+getQuestionIdsList:
+SELECT q_id FROM question;
+
+upsertQuestion {
+    UPDATE question
+    SET q_type = ?,
+         q_category_id = ?,
+         q_question = ?,
+         q_difficulty = ?,
+         q_createdAt = ?,
+         q_updatedAt = ?,
+         q_timesShown = ?
+    WHERE q_id = :id;
+
+    INSERT OR IGNORE INTO question(
+        q_type,
+        q_category_id,
+        q_question,
+        q_difficulty,
+        q_createdAt,
+        q_updatedAt,
+        q_timesShown
+    ) VALUES (?, ?, ?, ?, ?, ?, ?);
+}
+
+getRandomQuestion:
+SELECT * FROM question
+INNER JOIN category ON question.q_category_id = category.c_id
+INNER JOIN answer ON question.q_id = answer.a_questionId
+ORDER BY q_timesShown, RANDOM() ASC LIMIT 1;
+
+incrementQuestionShownTimesCount:
+UPDATE question SET q_timesShown = q_timesShown + 1
+WHERE q_id = :question_id;
+
+deleteQuestion:
+DELETE FROM question WHERE q_id = :question_id;
+
+deleteQuestions:
+DELETE FROM question WHERE q_id IN :question_ids;

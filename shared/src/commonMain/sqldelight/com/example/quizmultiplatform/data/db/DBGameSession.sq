@@ -1,0 +1,24 @@
+CREATE TABLE game_session (
+    g_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    g_time_per_question_ms INTEGER NOT NULL,
+    g_questions_count INTEGER NOT NULL,
+    g_mistakes_allowed_count INTEGER NOT NULL,
+    g_game_status TEXT NOT NULL,
+    g_createdAt INTEGER NOT NULL,
+    g_startedAt INTEGER,
+    g_finishedAt INTEGER,
+    g_gameDuration INTEGER
+);
+
+insertGameSession:
+INSERT INTO game_session(
+    g_time_per_question_ms,
+    g_questions_count,
+    g_mistakes_allowed_count,
+    g_game_status,
+    g_createdAt,
+    g_startedAt,
+    g_finishedAt,
+    g_gameDuration
+) VALUES (?, ?, ?,?,?,?,?, ?);
+

@@ -1,0 +1,9 @@
+CREATE TABLE answer (
+    a_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    a_questionId INTEGER NOT NULL,
+    a_value TEXT NOT NULL,
+    a_isCorrect INTEGER AS Boolean NOT NULL
+);
+
+insertAnswer:
+INSERT INTO answer(a_questionId, a_value, a_isCorrect) VALUES (?, ?, ?);

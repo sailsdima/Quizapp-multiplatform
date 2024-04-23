@@ -1,0 +1,11 @@
+CREATE TABLE game_questions_cross_ref (
+    game_id INTEGER NOT NULL,
+    question_id INTEGER NOT NULL,
+    added_at INTEGER NOT NULL,
+    PRIMARY KEY (game_id, question_id, added_at),
+    FOREIGN KEY (game_id) REFERENCES game_session(g_id) ON DELETE CASCADE,
+    FOREIGN KEY (question_id) REFERENCES question(q_id) ON DELETE CASCADE
+);
+
+insertGameQuestionsCrossRef:
+INSERT INTO game_questions_cross_ref(game_id, question_id, added_at) VALUES (?, ?, ?);
